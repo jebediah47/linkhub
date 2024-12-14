@@ -1,0 +1,32 @@
+{
+  "avatar": [
+    {
+      "src": "https://avatars.githubusercontent.com/u/73932821?v=4.png",
+      "fallback": "CL"
+    }
+  ],
+  "title": "Christian Llupo",
+  "subtitle": "High School student and aspiring software developer",
+  "socials": [
+    {
+      "name": "GitHub",
+      "icon": "mdi:github",
+      "url": "https://github.com/jebediah47"
+    },
+    {
+      "name": "LinkedIn",
+      "icon": "mdi:linkedin",
+      "url": "https://www.linkedin.com/in/cllupo/"
+    }
+  ],
+  "links": [
+    {
+      "name": "Galactica Bot",
+      "url": "https://github.com/jebediah47/galactica-bot"
+    },
+    {
+      "name": "Morse CLI",
+      "url": "https://github.com/jebediah47/morse-cli"
+    }
+  ]
+}

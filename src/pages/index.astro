@@ -1,0 +1,94 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { LinkCard } from "@/components/LinkCard.tsx";
+import { Title } from "@/components/Title";
+import { Subtitle } from "@/components/Subtitle";
+import { SocialMedia } from "@/components/SocialMedia";
+import { AvatarComponent } from "@/components/AvatarComponent";
+import data from "@/assets/config.json";
+
+interface Avatar {
+  src: string;
+  fallback: string;
+}
+
+interface Social {
+  name: string;
+  icon: string;
+  url: string;
+}
+
+interface Link {
+  name: string;
+  url: string;
+}
+
+interface Config {
+  avatar: Avatar[];
+  title: string;
+  subtitle: string;
+  socials: Social[];
+  links: Link[];
+}
+
+const config: Config = data;
+---
+
+<script is:inline>
+  const getThemePreference = () => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    return "dark"; // Default to dark mode
+  };
+  const isDark = getThemePreference() === "dark";
+  document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+
+  if (typeof localStorage !== "undefined") {
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
+</script>
+
+<style>
+  html {
+    overflow-y: hidden;
+  }
+</style>
+
+<Layout>
+  <div
+    class="flex items-center flex-col mx-auto w-full justify-center mt-16 px-8 pb-10"
+  >
+    <AvatarComponent
+      client:only
+      src={config.avatar[0].src}
+      fallback={config.avatar[0].fallback}
+    />
+    <Title text={config.title} />
+    <div class="flex items-center justify-center space-x-2">
+      {
+        config.socials.map((social) => (
+          <SocialMedia client:only icon={social.icon} href={social.url} />
+        ))
+      }
+    </div>
+    <Subtitle client:only text={config.subtitle} />
+    <div class="w-full max-w-3xl mt-2">
+      {
+        config.links.map((link) => (
+          <LinkCard title={link.name} href={link.url} />
+        ))
+      }
+    </div>
+  </div>
+</Layout>
