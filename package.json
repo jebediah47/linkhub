@@ -27,6 +27,6 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@iconify/react": "^5.1.0"
+    "@iconify/react": "^6.0.0"
   }
 }
